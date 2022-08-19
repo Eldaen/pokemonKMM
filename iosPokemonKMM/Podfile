@@ -1,0 +1,5 @@
+target 'iosPokemonKMM' do
+  use_frameworks!
+  platform :ios, '14.1'
+  pod 'sharedPokemonKMM', :path => '../sharedPokemonKMM'
+end

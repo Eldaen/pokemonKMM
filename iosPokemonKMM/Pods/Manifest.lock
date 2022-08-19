@@ -1,0 +1,16 @@
+PODS:
+  - sharedPokemonKMM (1.0)
+
+DEPENDENCIES:
+  - sharedPokemonKMM (from `../sharedPokemonKMM`)
+
+EXTERNAL SOURCES:
+  sharedPokemonKMM:
+    :path: "../sharedPokemonKMM"
+
+SPEC CHECKSUMS:
+  sharedPokemonKMM: 016c2c2ba0b29a76f66fa0b3f1365539be7cd996
+
+PODFILE CHECKSUM: 336e0f5571dc91763ab8089d942a831dea7926c2
+
+COCOAPODS: 1.11.3
