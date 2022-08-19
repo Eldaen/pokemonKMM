@@ -1,25 +1,32 @@
 package com.example.pokemonskmm.Model
 
 import io.ktor.client.*
+import io.ktor.client.call.*
+import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
+import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
 class PokemonService {
-    var httpClient = HttpClient()
-
-    private val json = Json {
-        ignoreUnknownKeys = true
+    var httpClient = HttpClient() {
+        install(ContentNegotiation) {
+            json(Json {
+                prettyPrint = true
+                isLenient = true
+                ignoreUnknownKeys = true
+            })
+        }
     }
 
+    @Throws(Exception::class)
     suspend fun getPokemon(url: String): Pokemon {
-        val response: HttpResponse = httpClient.get(url)
-        return json.decodeFromString<Pokemon>(response.bodyAsText())
+        return httpClient.get(url).body()
     }
 
+    @Throws(Exception::class)
     suspend fun getPokemons(): PokemonsList {
-        val response: HttpResponse = httpClient.get("https://pokeapi.co/api/v2/pokemon/?limit=100")
-        return json.decodeFromString<PokemonsList>(response.bodyAsText())
+        return httpClient.get("https://pokeapi.co/api/v2/pokemon/?limit=100").body()
     }
 }
