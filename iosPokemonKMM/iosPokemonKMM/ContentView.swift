@@ -2,24 +2,12 @@ import SwiftUI
 import sharedPokemonKMM
 
 struct ContentView: View {
-	let pokemonService = PokemonService()
-    @State var pokemonName: String = "Loading.."
+    @StateObject var pokemonService = PokemonData()
 
 	var body: some View {
-        Text(pokemonName).onAppear {
-            load()
-        }
+        PokemonsTable()
+            .environmentObject(pokemonService)
 	}
-    
-    func load() {
-        pokemonService.getPokemon { pokemon, error in
-            if let pokemon = pokemon {
-                pokemonName = pokemon.name
-            } else if let _ = error {
-                pokemonName = "Error.."
-            }
-        }
-    }
 }
 
 struct ContentView_Previews: PreviewProvider {

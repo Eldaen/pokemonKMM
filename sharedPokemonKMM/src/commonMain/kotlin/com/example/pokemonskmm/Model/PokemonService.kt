@@ -10,16 +10,31 @@ import kotlinx.serialization.json.Json
 class PokemonService {
     var httpClient = HttpClient()
 
-    suspend fun getPokemon(): Pokemon {
-        val pokemon = loadPokemon()
+    private val json = Json {
+        ignoreUnknownKeys = true
+    }
+
+    suspend fun getPokemon(url: String): Pokemon {
+        val pokemon = loadPokemon(url)
         pokemon.freeze()
         return pokemon
     }
 
-    private suspend fun loadPokemon(): Pokemon {
-        val response: HttpResponse = httpClient.get("https://pokeapi.co/api/v2/pokemon/ditto")
-        return Json {
-            ignoreUnknownKeys = true
-        }.decodeFromString<Pokemon>(response.bodyAsText())
+    suspend fun getPokemons(): PokemonsList {
+        val pokemons = loadPokemons()
+        pokemons.freeze()
+        return pokemons
+    }
+
+    private suspend fun loadPokemon(url: String): Pokemon {
+        val response: HttpResponse = httpClient.get(url)
+        return json.decodeFromString<Pokemon>(response.bodyAsText())
+    }
+
+
+
+    private suspend fun loadPokemons(): PokemonsList {
+        val response: HttpResponse = httpClient.get("https://pokeapi.co/api/v2/pokemon/?limit=100")
+        return json.decodeFromString<PokemonsList>(response.bodyAsText())
     }
 }
