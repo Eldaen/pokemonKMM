@@ -2,7 +2,7 @@ import SwiftUI
 import sharedPokemonKMM
 
 struct ContentView: View {
-    @StateObject var pokemonService = PokemonData()
+    @StateObject var pokemonService = PokemonService()
 
 	var body: some View {
         PokemonsTable()

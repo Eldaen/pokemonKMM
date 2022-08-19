@@ -10,7 +10,7 @@ import SwiftUI
 import sharedPokemonKMM
 
 struct PokemonsTable: View {
-    @EnvironmentObject var pokemonService: PokemonData
+    @EnvironmentObject var pokemonService: PokemonService
     
     @State var status: String = "Loading..."
     @State var pokemonCount: Int = 0
@@ -44,7 +44,7 @@ struct PokemonsTable: View {
     }
     
     func loadPokemons() {
-        pokemonService.shared.getPokemons { pokemons, error in
+        pokemonService.getPokemons { pokemons, error in
             if let pokemons = pokemons {
                 self.pokemons = pokemons
                 self.pokemonCount = pokemons.results.count

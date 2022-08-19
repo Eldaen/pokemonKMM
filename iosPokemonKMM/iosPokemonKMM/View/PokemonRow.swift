@@ -10,7 +10,7 @@ import SwiftUI
 import sharedPokemonKMM
 
 struct PokemonRow: View {
-    @EnvironmentObject var pokemonService: PokemonData
+    @EnvironmentObject var pokemonService: PokemonService
     @State var imageUrl: String = ""
     
     var pokemon: PokemonInListEntity
@@ -30,7 +30,7 @@ struct PokemonRow: View {
     }
     
     private func loadPokemonDetails() {
-        pokemonService.shared.getPokemon(url: pokemon.url) { pokemon, error in
+        pokemonService.getPokemon(url: pokemon.url) { pokemon, error in
             if let pokemon = pokemon {
                 self.imageUrl = pokemon.sprites.frontDefault
             }
