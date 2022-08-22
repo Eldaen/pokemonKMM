@@ -20,26 +20,24 @@ struct PokemonRow: View {
             Text(pokemon.name)
             Spacer()
             if #available(iOS 15.0, *) {
-                AsyncImage(url: URL(string: imageUrl))
+                AsyncImage(url: URL(string: pokemon.pokemon?.sprites.frontDefault ?? ""))
                     .frame(width: 40, height: 40)
             }
-        }.onAppear {
-            loadPokemonDetails()
         }
-
     }
     
-    private func loadPokemonDetails() {
-        pokemonService.getPokemon(url: pokemon.url) { pokemon, error in
-            if let pokemon = pokemon {
-                self.imageUrl = pokemon.sprites.frontDefault
-            }
-        }
-    }
+//    private func loadPokemonDetails() {
+//        pokemonService.getPokemon(url: pokemon.url) { pokemon, error in
+//            if let pokemon = pokemon {
+//                self.imageUrl = pokemon.sprites.frontDefault
+//            }
+//        }
+//    }
 }
 
 struct PokemonRow_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonRow(pokemon: PokemonInListEntity(name: "Ditto", url: ""))
+        let pokemon = Pokemon(id: 0, name: "bulbasaur", sprites: PokemonImage(frontDefault: "", other: nil))
+        PokemonRow(pokemon: PokemonInListEntity(name: "bulbasaur", url:"https://pokeapi.co/api/v2/pokemon/1/", pokemon: pokemon))
     }
 }

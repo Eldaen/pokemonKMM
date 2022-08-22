@@ -43,7 +43,7 @@ struct PokemonsTable: View {
         }
     }
     
-    func loadPokemons() {
+    private func loadPokemons() {
         pokemonService.getPokemons { pokemons, error in
             if let pokemons = pokemons {
                 self.pokemons = pokemons

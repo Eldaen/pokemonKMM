@@ -54,7 +54,7 @@ struct PokemonDetails: View {
             if let pokemon = pokemon {
                 if let other = pokemon.sprites.other {
                     self.imageUrl = other.officialArtwork.frontDefault
-                } else  {
+                } else {
                     self.imageUrl = pokemon.sprites.frontDefault
                 }
             }
@@ -64,6 +64,7 @@ struct PokemonDetails: View {
 
 struct PokemonDetails_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonDetails(pokemon: PokemonInListEntity(name: "Dafuq", url: ""))
+        let pokemon = Pokemon(id: 0, name: "bulbasaur", sprites: PokemonImage(frontDefault: "", other: nil))
+        PokemonDetails(pokemon: PokemonInListEntity(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/", pokemon: pokemon))
     }
 }
